@@ -857,7 +857,7 @@ class Game:
         self.screen.blit(title_shadow, shadow_rect)
         self.screen.blit(title_main, title_rect)
 
-        subtitle = self.font.render("Version: 5 дней страданий", True, (160, 160, 180))
+        subtitle = self.font.render("Version 1.0", True, (160, 160, 180))
         subtitle_rect = subtitle.get_rect(center=(self.settings.screen_width // 2, 190))
         self.screen.blit(subtitle, subtitle_rect)
 
