@@ -10,7 +10,7 @@ from colors import ColorPalette
 import constants
 
 class Player:
-    """Класс игрока с силуэтными персонажами и анимированными руками"""
+    """Класс игрока с персонажами и анимированными руками"""
     def __init__(self, x: int, y: int, is_left: bool = True,
                  body_type: BodyType = BodyType.ATHLETIC,
                  color_palette: str = "default"):
@@ -745,10 +745,10 @@ class Bot(Player):
             self.decision_cooldown -= 1
             return
 
-        distance = abs(self.x - player.x)
-        player_is_left = self.x > player.x
+        distance = abs(self.x - player.x) # Сбор информации о игроке (расстояние)
+        player_is_left = self.x > player.x # С какой стороны игрок
 
-        self.stop_moving()
+        self.stop_moving() # Очистка предыдущих действий
         self.attacking = False
         self.blocking = False
 

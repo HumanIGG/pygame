@@ -1,0 +1,964 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ru" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>player &mdash; документация Project name not set </title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=372fde1a"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=cd1d70c9"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="../genindex.html" />
+    <link rel="search" title="Поиск" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Project name not set
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Поиск в документации" aria-label="Поиск в документации" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Меню навигации">
+              <p class="caption" role="heading"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">API документация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Установка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Использование</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Меню навигации для мобильных устройств" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Project name not set</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Навигация по страницам">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Код модуля</a></li>
+      <li class="breadcrumb-item active">player</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Исходный код player</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Классы Player и Bot</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pygame</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enums</span><span class="w"> </span><span class="kn">import</span> <span class="n">BodyType</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColorPalette</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">constants</span>
+
+<div class="viewcode-block" id="Player">
+<a class="viewcode-back" href="../modules.html#player.Player">[документация]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Player</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Класс игрока с персонажами и анимированными руками&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Player.__init__">
+<a class="viewcode-back" href="../modules.html#player.Player.__init__">[документация]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">is_left</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                 <span class="n">body_type</span><span class="p">:</span> <span class="n">BodyType</span> <span class="o">=</span> <span class="n">BodyType</span><span class="o">.</span><span class="n">ATHLETIC</span><span class="p">,</span>
+                 <span class="n">color_palette</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_left</span> <span class="o">=</span> <span class="n">is_left</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">body_type</span> <span class="o">=</span> <span class="n">body_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">color_palette_name</span> <span class="o">=</span> <span class="n">color_palette</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span> <span class="o">=</span> <span class="n">ColorPalette</span><span class="o">.</span><span class="n">get_palette</span><span class="p">(</span><span class="n">color_palette</span><span class="p">)</span>
+
+        <span class="c1"># Основные параметры в зависимости от телосложения</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_body_parameters</span><span class="p">()</span>
+
+        <span class="c1"># Состояния игрока</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moving_left</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moving_right</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attacking</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blocking</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">block_direction</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attack_cooldown</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">block_cooldown</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attack_animation</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">already_hit_in_current_attack</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attacking_with_right</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Позиции частей тела</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;left_upper&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;base_x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;base_y&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;current_x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;current_y&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+            <span class="s2">&quot;left_lower&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;base_x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;base_y&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;current_x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;current_y&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+            <span class="s2">&quot;right_upper&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;base_x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;base_y&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;current_x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;current_y&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+            <span class="s2">&quot;right_lower&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;base_x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;base_y&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;current_x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;current_y&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_body_parts</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Player.set_body_parameters">
+<a class="viewcode-back" href="../modules.html#player.Player.set_body_parameters">[документация]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_body_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Установка параметров тела в зависимости от типа&quot;&quot;&quot;</span>
+        <span class="n">body_params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">BodyType</span><span class="o">.</span><span class="n">ATHLETIC</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">52</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mi">130</span><span class="p">,</span> <span class="s2">&quot;speed&quot;</span><span class="p">:</span> <span class="mf">5.5</span><span class="p">,</span> <span class="s2">&quot;health&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+                <span class="s2">&quot;max_health&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;head_radius&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span> <span class="s2">&quot;shoulder_width&quot;</span><span class="p">:</span> <span class="mi">45</span><span class="p">,</span>
+                <span class="s2">&quot;waist_width&quot;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span> <span class="s2">&quot;arm_thickness&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="s2">&quot;leg_thickness&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span>
+                <span class="s2">&quot;arm_length&quot;</span><span class="p">:</span> <span class="mi">55</span>
+            <span class="p">},</span>
+            <span class="n">BodyType</span><span class="o">.</span><span class="n">LEAN</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mi">140</span><span class="p">,</span> <span class="s2">&quot;speed&quot;</span><span class="p">:</span> <span class="mf">6.0</span><span class="p">,</span> <span class="s2">&quot;health&quot;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span>
+                <span class="s2">&quot;max_health&quot;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span> <span class="s2">&quot;head_radius&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="s2">&quot;shoulder_width&quot;</span><span class="p">:</span> <span class="mi">35</span><span class="p">,</span>
+                <span class="s2">&quot;waist_width&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span> <span class="s2">&quot;arm_thickness&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;leg_thickness&quot;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
+                <span class="s2">&quot;arm_length&quot;</span><span class="p">:</span> <span class="mi">60</span>
+            <span class="p">},</span>
+            <span class="n">BodyType</span><span class="o">.</span><span class="n">HEAVY</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">65</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mi">125</span><span class="p">,</span> <span class="s2">&quot;speed&quot;</span><span class="p">:</span> <span class="mf">4.5</span><span class="p">,</span> <span class="s2">&quot;health&quot;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>
+                <span class="s2">&quot;max_health&quot;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span> <span class="s2">&quot;head_radius&quot;</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span> <span class="s2">&quot;shoulder_width&quot;</span><span class="p">:</span> <span class="mi">55</span><span class="p">,</span>
+                <span class="s2">&quot;waist_width&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="s2">&quot;arm_thickness&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s2">&quot;leg_thickness&quot;</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
+                <span class="s2">&quot;arm_length&quot;</span><span class="p">:</span> <span class="mi">50</span>
+            <span class="p">},</span>
+            <span class="n">BodyType</span><span class="o">.</span><span class="n">SUMO</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mi">115</span><span class="p">,</span> <span class="s2">&quot;speed&quot;</span><span class="p">:</span> <span class="mf">3.5</span><span class="p">,</span> <span class="s2">&quot;health&quot;</span><span class="p">:</span> <span class="mi">150</span><span class="p">,</span>
+                <span class="s2">&quot;max_health&quot;</span><span class="p">:</span> <span class="mi">150</span><span class="p">,</span> <span class="s2">&quot;head_radius&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s2">&quot;shoulder_width&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+                <span class="s2">&quot;waist_width&quot;</span><span class="p">:</span> <span class="mi">70</span><span class="p">,</span> <span class="s2">&quot;arm_thickness&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span> <span class="s2">&quot;leg_thickness&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+                <span class="s2">&quot;arm_length&quot;</span><span class="p">:</span> <span class="mi">45</span>
+            <span class="p">},</span>
+            <span class="n">BodyType</span><span class="o">.</span><span class="n">NINJA</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">45</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mi">135</span><span class="p">,</span> <span class="s2">&quot;speed&quot;</span><span class="p">:</span> <span class="mf">6.5</span><span class="p">,</span> <span class="s2">&quot;health&quot;</span><span class="p">:</span> <span class="mi">85</span><span class="p">,</span>
+                <span class="s2">&quot;max_health&quot;</span><span class="p">:</span> <span class="mi">85</span><span class="p">,</span> <span class="s2">&quot;head_radius&quot;</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span> <span class="s2">&quot;shoulder_width&quot;</span><span class="p">:</span> <span class="mi">38</span><span class="p">,</span>
+                <span class="s2">&quot;waist_width&quot;</span><span class="p">:</span> <span class="mi">35</span><span class="p">,</span> <span class="s2">&quot;arm_thickness&quot;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span> <span class="s2">&quot;leg_thickness&quot;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+                <span class="s2">&quot;arm_length&quot;</span><span class="p">:</span> <span class="mi">65</span>
+            <span class="p">},</span>
+            <span class="n">BodyType</span><span class="o">.</span><span class="n">ROBOTIC</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">58</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mi">145</span><span class="p">,</span> <span class="s2">&quot;speed&quot;</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span> <span class="s2">&quot;health&quot;</span><span class="p">:</span> <span class="mi">110</span><span class="p">,</span>
+                <span class="s2">&quot;max_health&quot;</span><span class="p">:</span> <span class="mi">110</span><span class="p">,</span> <span class="s2">&quot;head_radius&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s2">&quot;shoulder_width&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+                <span class="s2">&quot;waist_width&quot;</span><span class="p">:</span> <span class="mi">45</span><span class="p">,</span> <span class="s2">&quot;arm_thickness&quot;</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span> <span class="s2">&quot;leg_thickness&quot;</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
+                <span class="s2">&quot;arm_length&quot;</span><span class="p">:</span> <span class="mi">58</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="n">body_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">body_type</span><span class="p">,</span> <span class="n">body_params</span><span class="p">[</span><span class="n">BodyType</span><span class="o">.</span><span class="n">ATHLETIC</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Player.determine_attack_hand">
+<a class="viewcode-back" href="../modules.html#player.Player.determine_attack_hand">[документация]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">determine_attack_hand</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opponent_x</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Определяет какой рукой бить в зависимости от позиции противника&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">opponent_x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">attacking_with_right</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">attacking_with_right</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">attacking_with_right</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">block_direction</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">block_direction</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span></div>
+
+
+<div class="viewcode-block" id="Player.move_left">
+<a class="viewcode-back" href="../modules.html#player.Player.move_left">[документация]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">move_left</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Движение влево&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moving_left</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moving_right</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Player.move_right">
+<a class="viewcode-back" href="../modules.html#player.Player.move_right">[документация]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">move_right</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Движение вправо&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moving_right</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moving_left</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Player.stop_moving">
+<a class="viewcode-back" href="../modules.html#player.Player.stop_moving">[документация]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop_moving</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Остановка движения&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moving_left</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moving_right</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Player.attack">
+<a class="viewcode-back" href="../modules.html#player.Player.attack">[документация]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">attack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opponent_x</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Начало атаки с автоматическим выбором руки&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">attack_cooldown</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">determine_attack_hand</span><span class="p">(</span><span class="n">opponent_x</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">attacking</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">attack_animation</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">ATTACK_ANIMATION_DURATION</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">attack_cooldown</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">ATTACK_COOLDOWN</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">already_hit_in_current_attack</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Player.block">
+<a class="viewcode-back" href="../modules.html#player.Player.block">[документация]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opponent_x</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Установка блока с автоматическим выбором стороны&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_cooldown</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">opponent_x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">block_direction</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">block_direction</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">blocking</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">block_cooldown</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">BLOCK_COOLDOWN</span></div>
+
+
+<div class="viewcode-block" id="Player.update_body_parts">
+<a class="viewcode-back" href="../modules.html#player.Player.update_body_parts">[документация]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_body_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Обновление позиций всех частей тела с анимацией рук&quot;&quot;&quot;</span>
+        <span class="n">center_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="n">base_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span>
+
+        <span class="c1"># Очищаем предыдущие части тела</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Голова</span>
+        <span class="n">head_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head_radius</span> <span class="o">*</span> <span class="mf">1.8</span>
+        <span class="n">head_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head_radius</span> <span class="o">*</span> <span class="mf">2.2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;head&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ellipse&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;rect&quot;</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="n">center_x</span> <span class="o">-</span> <span class="n">head_width</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">base_y</span> <span class="o">-</span> <span class="n">head_height</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">head_width</span><span class="p">,</span> <span class="n">head_height</span><span class="p">),</span>
+            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Шея</span>
+        <span class="n">neck_height</span> <span class="o">=</span> <span class="mi">15</span>
+        <span class="n">neck_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head_radius</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;neck&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;rect&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;rect&quot;</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="n">center_x</span> <span class="o">-</span> <span class="n">neck_width</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">base_y</span> <span class="o">-</span> <span class="n">neck_height</span><span class="p">,</span> <span class="n">neck_width</span><span class="p">,</span> <span class="n">neck_height</span><span class="p">),</span>
+            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Торс</span>
+        <span class="n">torso_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="mf">0.45</span>
+        <span class="n">torso_y</span> <span class="o">=</span> <span class="n">base_y</span>
+        <span class="n">torso_top_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shoulder_width</span> <span class="o">*</span> <span class="mf">0.9</span>
+        <span class="n">torso_bottom_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">waist_width</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;torso&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;polygon&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;points&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">-</span> <span class="n">torso_top_width</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">torso_y</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">+</span> <span class="n">torso_top_width</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">torso_y</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">+</span> <span class="n">torso_bottom_width</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">torso_y</span> <span class="o">+</span> <span class="n">torso_height</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">-</span> <span class="n">torso_bottom_width</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">torso_y</span> <span class="o">+</span> <span class="n">torso_height</span><span class="p">)</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Таз</span>
+        <span class="n">pelvis_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="mf">0.25</span>
+        <span class="n">pelvis_y</span> <span class="o">=</span> <span class="n">torso_y</span> <span class="o">+</span> <span class="n">torso_height</span>
+        <span class="n">pelvis_top_width</span> <span class="o">=</span> <span class="n">torso_bottom_width</span>
+        <span class="n">pelvis_bottom_width</span> <span class="o">=</span> <span class="n">pelvis_top_width</span> <span class="o">*</span> <span class="mf">0.8</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;pelvis&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;polygon&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;points&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">-</span> <span class="n">pelvis_top_width</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">pelvis_y</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">+</span> <span class="n">pelvis_top_width</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">pelvis_y</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">+</span> <span class="n">pelvis_bottom_width</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">pelvis_y</span> <span class="o">+</span> <span class="n">pelvis_height</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">-</span> <span class="n">pelvis_bottom_width</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">pelvis_y</span> <span class="o">+</span> <span class="n">pelvis_height</span><span class="p">)</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Анимация удара</span>
+        <span class="n">attack_progress</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attack_animation</span> <span class="o">/</span> <span class="n">constants</span><span class="o">.</span><span class="n">ATTACK_ANIMATION_DURATION</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">attacking</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="n">attack_strength</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="nb">abs</span><span class="p">(</span><span class="n">attack_progress</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>  <span class="c1"># Пик на середине анимации</span>
+
+        <span class="c1"># Позиции плеч</span>
+        <span class="n">left_shoulder_x</span> <span class="o">=</span> <span class="n">center_x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">shoulder_width</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">5</span>
+        <span class="n">right_shoulder_x</span> <span class="o">=</span> <span class="n">center_x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">shoulder_width</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">5</span>
+        <span class="n">shoulder_y</span> <span class="o">=</span> <span class="n">base_y</span> <span class="o">+</span> <span class="mi">5</span>
+
+        <span class="c1"># РУКИ С АНИМАЦИЕЙ</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">attacking</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">attacking_with_right</span><span class="p">:</span>
+                <span class="c1"># Анимация правой руки для удара</span>
+                <span class="n">attack_offset_x</span> <span class="o">=</span> <span class="mi">50</span> <span class="o">*</span> <span class="n">attack_strength</span>
+                <span class="n">attack_offset_y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">20</span> <span class="o">*</span> <span class="n">attack_strength</span>
+
+                <span class="c1"># Правая рука (атакующая)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_upper&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right_shoulder_x</span> <span class="o">+</span> <span class="n">attack_offset_x</span> <span class="o">*</span> <span class="mf">0.3</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_upper&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shoulder_y</span> <span class="o">+</span> <span class="n">attack_offset_y</span> <span class="o">*</span> <span class="mf">0.3</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right_shoulder_x</span> <span class="o">+</span> <span class="n">attack_offset_x</span> <span class="o">*</span> <span class="mf">0.7</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shoulder_y</span> <span class="o">+</span> <span class="n">attack_offset_y</span> <span class="o">*</span> <span class="mf">0.7</span>
+
+                <span class="c1"># Левая рука (отводится назад)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_upper&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_shoulder_x</span> <span class="o">-</span> <span class="mi">10</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_upper&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shoulder_y</span> <span class="o">+</span> <span class="mi">5</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_shoulder_x</span> <span class="o">-</span> <span class="mi">20</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shoulder_y</span> <span class="o">+</span> <span class="mi">30</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Анимация левой руки для удара</span>
+                <span class="n">attack_offset_x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span> <span class="o">*</span> <span class="n">attack_strength</span>
+                <span class="n">attack_offset_y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">20</span> <span class="o">*</span> <span class="n">attack_strength</span>
+
+                <span class="c1"># Левая рука (атакующая)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_upper&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_shoulder_x</span> <span class="o">+</span> <span class="n">attack_offset_x</span> <span class="o">*</span> <span class="mf">0.3</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_upper&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shoulder_y</span> <span class="o">+</span> <span class="n">attack_offset_y</span> <span class="o">*</span> <span class="mf">0.3</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_shoulder_x</span> <span class="o">+</span> <span class="n">attack_offset_x</span> <span class="o">*</span> <span class="mf">0.7</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shoulder_y</span> <span class="o">+</span> <span class="n">attack_offset_y</span> <span class="o">*</span> <span class="mf">0.7</span>
+
+                <span class="c1"># Правая рука (отводится назад)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_upper&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right_shoulder_x</span> <span class="o">+</span> <span class="mi">10</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_upper&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shoulder_y</span> <span class="o">+</span> <span class="mi">5</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right_shoulder_x</span> <span class="o">+</span> <span class="mi">20</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shoulder_y</span> <span class="o">+</span> <span class="mi">30</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Нормальное положение рук</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_upper&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_shoulder_x</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_upper&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shoulder_y</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_shoulder_x</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shoulder_y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_length</span> <span class="o">*</span> <span class="mf">0.6</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_upper&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right_shoulder_x</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_upper&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shoulder_y</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right_shoulder_x</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shoulder_y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_length</span> <span class="o">*</span> <span class="mf">0.6</span>
+
+        <span class="c1"># Сохраняем базовые позиции</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_upper&quot;</span><span class="p">][</span><span class="s2">&quot;base_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_shoulder_x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_upper&quot;</span><span class="p">][</span><span class="s2">&quot;base_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shoulder_y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_upper&quot;</span><span class="p">][</span><span class="s2">&quot;base_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right_shoulder_x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_upper&quot;</span><span class="p">][</span><span class="s2">&quot;base_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shoulder_y</span>
+
+        <span class="c1"># Левая рука (верхняя часть)</span>
+        <span class="n">left_upper_arm</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;polygon&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;points&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_upper&quot;</span><span class="p">][</span><span class="s2">&quot;base_x&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_upper&quot;</span><span class="p">][</span><span class="s2">&quot;base_y&quot;</span><span class="p">]),</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_upper&quot;</span><span class="p">][</span><span class="s2">&quot;base_x&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_thickness</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_upper&quot;</span><span class="p">][</span><span class="s2">&quot;base_y&quot;</span><span class="p">]),</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_thickness</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]),</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">])</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Левая рука (нижняя часть)</span>
+        <span class="n">left_lower_arm</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;polygon&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;points&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]),</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_thickness</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]),</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_thickness</span> <span class="o">*</span> <span class="mf">0.6</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_length</span> <span class="o">*</span> <span class="mf">0.4</span><span class="p">),</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_length</span> <span class="o">*</span> <span class="mf">0.4</span><span class="p">)</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Правая рука (верхняя часть)</span>
+        <span class="n">right_upper_arm</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;polygon&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;points&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_upper&quot;</span><span class="p">][</span><span class="s2">&quot;base_x&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_upper&quot;</span><span class="p">][</span><span class="s2">&quot;base_y&quot;</span><span class="p">]),</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_upper&quot;</span><span class="p">][</span><span class="s2">&quot;base_x&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_thickness</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_upper&quot;</span><span class="p">][</span><span class="s2">&quot;base_y&quot;</span><span class="p">]),</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_thickness</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]),</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">])</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Правая рука (нижняя часть)</span>
+        <span class="n">right_lower_arm</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;polygon&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;points&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]),</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_thickness</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]),</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_thickness</span> <span class="o">*</span> <span class="mf">0.6</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_length</span> <span class="o">*</span> <span class="mf">0.4</span><span class="p">),</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_length</span> <span class="o">*</span> <span class="mf">0.4</span><span class="p">)</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;left_upper_arm&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_upper_arm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;left_lower_arm&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_lower_arm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;right_upper_arm&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right_upper_arm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;right_lower_arm&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right_lower_arm</span>
+
+        <span class="c1"># Кисти рук</span>
+        <span class="n">hand_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_thickness</span> <span class="o">*</span> <span class="mf">0.8</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">attacking</span><span class="p">:</span>
+            <span class="c1"># Атакующая рука - сжатый кулак</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">attacking_with_right</span><span class="p">:</span>
+                <span class="n">right_hand</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ellipse&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;rect&quot;</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">hand_size</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_length</span> <span class="o">*</span> <span class="mf">0.4</span> <span class="o">-</span> <span class="n">hand_size</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span>
+                        <span class="n">hand_size</span> <span class="o">*</span> <span class="mf">1.2</span><span class="p">,</span>
+                        <span class="n">hand_size</span> <span class="o">*</span> <span class="mf">1.2</span>
+                    <span class="p">),</span>
+                    <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;attack&quot;</span><span class="p">]</span>
+                <span class="p">}</span>
+                <span class="n">left_hand</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ellipse&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;rect&quot;</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">hand_size</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_length</span> <span class="o">*</span> <span class="mf">0.4</span> <span class="o">-</span> <span class="n">hand_size</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span>
+                        <span class="n">hand_size</span><span class="p">,</span>
+                        <span class="n">hand_size</span>
+                    <span class="p">),</span>
+                    <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+                <span class="p">}</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">left_hand</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ellipse&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;rect&quot;</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">hand_size</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_length</span> <span class="o">*</span> <span class="mf">0.4</span> <span class="o">-</span> <span class="n">hand_size</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span>
+                        <span class="n">hand_size</span> <span class="o">*</span> <span class="mf">1.2</span><span class="p">,</span>
+                        <span class="n">hand_size</span> <span class="o">*</span> <span class="mf">1.2</span>
+                    <span class="p">),</span>
+                    <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;attack&quot;</span><span class="p">]</span>
+                <span class="p">}</span>
+                <span class="n">right_hand</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ellipse&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;rect&quot;</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">hand_size</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_length</span> <span class="o">*</span> <span class="mf">0.4</span> <span class="o">-</span> <span class="n">hand_size</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span>
+                        <span class="n">hand_size</span><span class="p">,</span>
+                        <span class="n">hand_size</span>
+                    <span class="p">),</span>
+                    <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+                <span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Обычное положение - расслабленные кисти</span>
+            <span class="n">left_hand</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ellipse&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rect&quot;</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">hand_size</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_length</span> <span class="o">*</span> <span class="mf">0.4</span> <span class="o">-</span> <span class="n">hand_size</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span>
+                    <span class="n">hand_size</span><span class="p">,</span>
+                    <span class="n">hand_size</span>
+                <span class="p">),</span>
+                <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+            <span class="n">right_hand</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ellipse&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rect&quot;</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">hand_size</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_length</span> <span class="o">*</span> <span class="mf">0.4</span> <span class="o">-</span> <span class="n">hand_size</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span>
+                    <span class="n">hand_size</span><span class="p">,</span>
+                    <span class="n">hand_size</span>
+                <span class="p">),</span>
+                <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;left_hand&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_hand</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;right_hand&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right_hand</span>
+
+        <span class="c1"># Ноги</span>
+        <span class="n">leg_length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="mf">0.5</span>
+        <span class="n">leg_start_y</span> <span class="o">=</span> <span class="n">pelvis_y</span> <span class="o">+</span> <span class="n">pelvis_height</span>
+
+        <span class="c1"># Левая нога (верхняя часть)</span>
+        <span class="n">left_upper_leg</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;polygon&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;points&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">-</span> <span class="mi">10</span><span class="p">,</span> <span class="n">leg_start_y</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">-</span> <span class="mi">10</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">leg_thickness</span><span class="p">,</span> <span class="n">leg_start_y</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">-</span> <span class="mi">15</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">leg_thickness</span><span class="p">,</span> <span class="n">leg_start_y</span> <span class="o">+</span> <span class="n">leg_length</span><span class="o">//</span><span class="mi">2</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">-</span> <span class="mi">15</span><span class="p">,</span> <span class="n">leg_start_y</span> <span class="o">+</span> <span class="n">leg_length</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Левая нога (нижняя часть)</span>
+        <span class="n">left_lower_leg</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;polygon&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;points&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">-</span> <span class="mi">15</span><span class="p">,</span> <span class="n">leg_start_y</span> <span class="o">+</span> <span class="n">leg_length</span><span class="o">//</span><span class="mi">2</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">-</span> <span class="mi">15</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">leg_thickness</span><span class="p">,</span> <span class="n">leg_start_y</span> <span class="o">+</span> <span class="n">leg_length</span><span class="o">//</span><span class="mi">2</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">-</span> <span class="mi">12</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">leg_thickness</span><span class="p">,</span> <span class="n">leg_start_y</span> <span class="o">+</span> <span class="n">leg_length</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">-</span> <span class="mi">12</span><span class="p">,</span> <span class="n">leg_start_y</span> <span class="o">+</span> <span class="n">leg_length</span><span class="p">)</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Правая нога (верхняя часть)</span>
+        <span class="n">right_upper_leg</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;polygon&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;points&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">leg_start_y</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">+</span> <span class="mi">10</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">leg_thickness</span><span class="p">,</span> <span class="n">leg_start_y</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">+</span> <span class="mi">15</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">leg_thickness</span><span class="p">,</span> <span class="n">leg_start_y</span> <span class="o">+</span> <span class="n">leg_length</span><span class="o">//</span><span class="mi">2</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">+</span> <span class="mi">15</span><span class="p">,</span> <span class="n">leg_start_y</span> <span class="o">+</span> <span class="n">leg_length</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Правая нога (нижняя часть)</span>
+        <span class="n">right_lower_leg</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;polygon&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;points&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">+</span> <span class="mi">15</span><span class="p">,</span> <span class="n">leg_start_y</span> <span class="o">+</span> <span class="n">leg_length</span><span class="o">//</span><span class="mi">2</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">+</span> <span class="mi">15</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">leg_thickness</span><span class="p">,</span> <span class="n">leg_start_y</span> <span class="o">+</span> <span class="n">leg_length</span><span class="o">//</span><span class="mi">2</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">+</span> <span class="mi">12</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">leg_thickness</span><span class="p">,</span> <span class="n">leg_start_y</span> <span class="o">+</span> <span class="n">leg_length</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">center_x</span> <span class="o">+</span> <span class="mi">12</span><span class="p">,</span> <span class="n">leg_start_y</span> <span class="o">+</span> <span class="n">leg_length</span><span class="p">)</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;left_upper_leg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_upper_leg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;left_lower_leg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_lower_leg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;right_upper_leg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right_upper_leg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;right_lower_leg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right_lower_leg</span>
+
+        <span class="c1"># Ступни</span>
+        <span class="n">foot_length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">leg_thickness</span> <span class="o">*</span> <span class="mi">2</span>
+        <span class="n">foot_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">leg_thickness</span> <span class="o">*</span> <span class="mf">0.7</span>
+
+        <span class="n">left_foot</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ellipse&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;rect&quot;</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span>
+                <span class="n">center_x</span> <span class="o">-</span> <span class="mi">12</span> <span class="o">-</span> <span class="n">foot_length</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span>
+                <span class="n">leg_start_y</span> <span class="o">+</span> <span class="n">leg_length</span> <span class="o">-</span> <span class="n">foot_height</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span>
+                <span class="n">foot_length</span><span class="p">,</span>
+                <span class="n">foot_height</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="n">right_foot</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ellipse&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;rect&quot;</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span>
+                <span class="n">center_x</span> <span class="o">+</span> <span class="mi">12</span> <span class="o">-</span> <span class="n">foot_length</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span>
+                <span class="n">leg_start_y</span> <span class="o">+</span> <span class="n">leg_length</span> <span class="o">-</span> <span class="n">foot_height</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span>
+                <span class="n">foot_length</span><span class="p">,</span>
+                <span class="n">foot_height</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;left_foot&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_foot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;right_foot&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right_foot</span>
+
+        <span class="c1"># Специальные детали для разных типов телосложения</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">body_type</span> <span class="o">==</span> <span class="n">BodyType</span><span class="o">.</span><span class="n">ATHLETIC</span><span class="p">:</span>
+            <span class="c1"># Мускульные детали</span>
+            <span class="n">chest_detail</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ellipse&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rect&quot;</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="n">center_x</span> <span class="o">-</span> <span class="mi">15</span><span class="p">,</span> <span class="n">base_y</span> <span class="o">+</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+                <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;highlight&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;chest_detail&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">chest_detail</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">body_type</span> <span class="o">==</span> <span class="n">BodyType</span><span class="o">.</span><span class="n">HEAVY</span><span class="p">:</span>
+            <span class="c1"># Детали для крупного телосложения</span>
+            <span class="n">belly_detail</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ellipse&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rect&quot;</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="n">center_x</span> <span class="o">-</span> <span class="mi">20</span><span class="p">,</span> <span class="n">base_y</span> <span class="o">+</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+                <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;highlight&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;belly_detail&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">belly_detail</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">body_type</span> <span class="o">==</span> <span class="n">BodyType</span><span class="o">.</span><span class="n">SUMO</span><span class="p">:</span>
+            <span class="c1"># Пояс сумоиста</span>
+            <span class="n">mawashi_width</span> <span class="o">=</span> <span class="mi">60</span>
+            <span class="n">mawashi_height</span> <span class="o">=</span> <span class="mi">15</span>
+            <span class="n">mawashi</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;rect&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rect&quot;</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="n">center_x</span> <span class="o">-</span> <span class="n">mawashi_width</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">base_y</span> <span class="o">+</span> <span class="mi">80</span><span class="p">,</span> <span class="n">mawashi_width</span><span class="p">,</span> <span class="n">mawashi_height</span><span class="p">),</span>
+                <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>  <span class="c1"># Красный пояс</span>
+            <span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;mawashi&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mawashi</span>
+
+            <span class="c1"># Прическа сумоиста</span>
+            <span class="n">topknot</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ellipse&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rect&quot;</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="n">center_x</span> <span class="o">-</span> <span class="mi">10</span><span class="p">,</span> <span class="n">base_y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">head_radius</span><span class="o">*</span><span class="mf">2.2</span> <span class="o">-</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+                <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;body&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;topknot&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">topknot</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">body_type</span> <span class="o">==</span> <span class="n">BodyType</span><span class="o">.</span><span class="n">NINJA</span><span class="p">:</span>
+            <span class="c1"># Повязка ниндзя</span>
+            <span class="n">headband_width</span> <span class="o">=</span> <span class="mi">40</span>
+            <span class="n">headband_height</span> <span class="o">=</span> <span class="mi">8</span>
+            <span class="n">headband</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;rect&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rect&quot;</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="n">center_x</span> <span class="o">-</span> <span class="n">headband_width</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">base_y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">head_radius</span><span class="o">*</span><span class="mf">1.8</span><span class="p">,</span> <span class="n">headband_width</span><span class="p">,</span> <span class="n">headband_height</span><span class="p">),</span>
+                <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>  <span class="c1"># Красная повязка</span>
+            <span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;headband&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">headband</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">body_type</span> <span class="o">==</span> <span class="n">BodyType</span><span class="o">.</span><span class="n">ROBOTIC</span><span class="p">:</span>
+            <span class="c1"># Детали робота</span>
+            <span class="n">panel1</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;rect&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rect&quot;</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="n">center_x</span> <span class="o">-</span> <span class="mi">12</span><span class="p">,</span> <span class="n">base_y</span> <span class="o">+</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
+                <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;highlight&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+            <span class="n">panel2</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;rect&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rect&quot;</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="n">center_x</span> <span class="o">-</span> <span class="mi">8</span><span class="p">,</span> <span class="n">base_y</span> <span class="o">+</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+                <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;highlight&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;robot_panel1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">panel1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;robot_panel2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">panel2</span>
+
+            <span class="c1"># Антенна</span>
+            <span class="n">antenna</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;line&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;points&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="n">center_x</span><span class="p">,</span> <span class="n">base_y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">head_radius</span><span class="o">*</span><span class="mf">2.2</span><span class="p">),</span> <span class="p">(</span><span class="n">center_x</span><span class="p">,</span> <span class="n">base_y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">head_radius</span><span class="o">*</span><span class="mf">2.2</span> <span class="o">-</span> <span class="mi">20</span><span class="p">)],</span>
+                <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;highlight&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">3</span>
+            <span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="s2">&quot;antenna&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">antenna</span></div>
+
+
+<div class="viewcode-block" id="Player.update">
+<a class="viewcode-back" href="../modules.html#player.Player.update">[документация]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ground_y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">screen_width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">opponent_x</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Обновление состояния игрока&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moving_left</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moving_right</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">screen_width</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">ground_y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">attacking</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">attack_animation</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">attack_animation</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">attack_animation</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">attacking</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">already_hit_in_current_attack</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">attack_cooldown</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">attack_cooldown</span> <span class="o">-=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_cooldown</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">block_cooldown</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_cooldown</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">blocking</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="n">opponent_x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">blocking</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">opponent_x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">block_direction</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">block_direction</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_body_parts</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Player.take_damage">
+<a class="viewcode-back" href="../modules.html#player.Player.take_damage">[документация]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">take_damage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">damage</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Получение урона&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">blocking</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">-</span> <span class="n">damage</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Player.get_rect">
+<a class="viewcode-back" href="../modules.html#player.Player.get_rect">[документация]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Получение прямоугольника для коллизий&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">head_radius</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">head_radius</span> <span class="o">*</span> <span class="mi">2</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Player.get_attack_rect">
+<a class="viewcode-back" href="../modules.html#player.Player.get_attack_rect">[документация]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_attack_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Получение прямоугольника для атаки&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">attacking</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">center_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">attacking_with_right</span><span class="p">:</span>
+            <span class="c1"># Прямоугольник для правой атакующей руки</span>
+            <span class="n">hand_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span>
+            <span class="n">hand_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;right_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_length</span> <span class="o">*</span> <span class="mf">0.4</span>
+
+            <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span>
+                <span class="n">hand_x</span> <span class="o">-</span> <span class="mi">15</span><span class="p">,</span>
+                <span class="n">hand_y</span> <span class="o">-</span> <span class="mi">15</span><span class="p">,</span>
+                <span class="mi">30</span><span class="p">,</span>
+                <span class="mi">30</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Прямоугольник для левой атакующей руки</span>
+            <span class="n">hand_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_x&quot;</span><span class="p">]</span>
+            <span class="n">hand_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_positions</span><span class="p">[</span><span class="s2">&quot;left_lower&quot;</span><span class="p">][</span><span class="s2">&quot;current_y&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">arm_length</span> <span class="o">*</span> <span class="mf">0.4</span>
+
+            <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span>
+                <span class="n">hand_x</span> <span class="o">-</span> <span class="mi">15</span><span class="p">,</span>
+                <span class="n">hand_y</span> <span class="o">-</span> <span class="mi">15</span><span class="p">,</span>
+                <span class="mi">30</span><span class="p">,</span>
+                <span class="mi">30</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Player.get_block_rect">
+<a class="viewcode-back" href="../modules.html#player.Player.get_block_rect">[документация]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_block_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Получение прямоугольника для блока&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">blocking</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">center_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="n">block_width</span> <span class="o">=</span> <span class="mi">25</span>
+        <span class="n">block_height</span> <span class="o">=</span> <span class="mi">80</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_direction</span> <span class="o">==</span> <span class="s2">&quot;left&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span>
+                <span class="n">center_x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">shoulder_width</span><span class="o">//</span><span class="mi">2</span> <span class="o">-</span> <span class="n">block_width</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">25</span><span class="p">,</span>
+                <span class="n">block_width</span><span class="p">,</span>
+                <span class="n">block_height</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span>
+                <span class="n">center_x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">shoulder_width</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">25</span><span class="p">,</span>
+                <span class="n">block_width</span><span class="p">,</span>
+                <span class="n">block_height</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Player.draw">
+<a class="viewcode-back" href="../modules.html#player.Player.draw">[документация]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Отрисовка персонажа с анимированными руками&quot;&quot;&quot;</span>
+        <span class="c1"># Отрисовка ног и ступней</span>
+        <span class="k">for</span> <span class="n">part_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;left_upper_leg&quot;</span><span class="p">,</span> <span class="s2">&quot;left_lower_leg&quot;</span><span class="p">,</span> <span class="s2">&quot;right_upper_leg&quot;</span><span class="p">,</span> <span class="s2">&quot;right_lower_leg&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;left_foot&quot;</span><span class="p">,</span> <span class="s2">&quot;right_foot&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">part_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">:</span>
+                <span class="n">part_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="n">part_name</span><span class="p">]</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;rect&quot;</span><span class="p">:</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;rect&quot;</span><span class="p">],</span> <span class="n">border_radius</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ellipse&quot;</span><span class="p">:</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;rect&quot;</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;polygon&quot;</span><span class="p">:</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">polygon</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;points&quot;</span><span class="p">])</span>
+
+        <span class="c1"># Отрисовка таза и торса</span>
+        <span class="k">for</span> <span class="n">part_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;pelvis&quot;</span><span class="p">,</span> <span class="s2">&quot;torso&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">part_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">:</span>
+                <span class="n">part_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="n">part_name</span><span class="p">]</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">polygon</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">],</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;points&quot;</span><span class="p">])</span>
+
+        <span class="c1"># Отрисовка рук</span>
+        <span class="k">for</span> <span class="n">part_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;left_upper_arm&quot;</span><span class="p">,</span> <span class="s2">&quot;left_lower_arm&quot;</span><span class="p">,</span> <span class="s2">&quot;right_upper_arm&quot;</span><span class="p">,</span> <span class="s2">&quot;right_lower_arm&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">part_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">:</span>
+                <span class="n">part_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="n">part_name</span><span class="p">]</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">polygon</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">],</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;points&quot;</span><span class="p">])</span>
+
+        <span class="c1"># Отрисовка кистей</span>
+        <span class="k">for</span> <span class="n">part_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;left_hand&quot;</span><span class="p">,</span> <span class="s2">&quot;right_hand&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">part_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">:</span>
+                <span class="n">part_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="n">part_name</span><span class="p">]</span>
+                <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">],</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;rect&quot;</span><span class="p">])</span>
+
+        <span class="c1"># Отрисовка шеи и головы</span>
+        <span class="k">for</span> <span class="n">part_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;neck&quot;</span><span class="p">,</span> <span class="s2">&quot;head&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">part_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">:</span>
+                <span class="n">part_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="p">[</span><span class="n">part_name</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;rect&quot;</span><span class="p">:</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">],</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;rect&quot;</span><span class="p">],</span> <span class="n">border_radius</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ellipse&quot;</span><span class="p">:</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">],</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;rect&quot;</span><span class="p">])</span>
+
+        <span class="c1"># Отрисовка деталей</span>
+        <span class="k">for</span> <span class="n">part_name</span><span class="p">,</span> <span class="n">part_data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">body_parts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">part_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;head&quot;</span><span class="p">,</span> <span class="s2">&quot;neck&quot;</span><span class="p">,</span> <span class="s2">&quot;torso&quot;</span><span class="p">,</span> <span class="s2">&quot;pelvis&quot;</span><span class="p">,</span> <span class="s2">&quot;left_upper_arm&quot;</span><span class="p">,</span> <span class="s2">&quot;left_lower_arm&quot;</span><span class="p">,</span>
+                               <span class="s2">&quot;right_upper_arm&quot;</span><span class="p">,</span> <span class="s2">&quot;right_lower_arm&quot;</span><span class="p">,</span> <span class="s2">&quot;left_hand&quot;</span><span class="p">,</span> <span class="s2">&quot;right_hand&quot;</span><span class="p">,</span>
+                               <span class="s2">&quot;left_upper_leg&quot;</span><span class="p">,</span> <span class="s2">&quot;left_lower_leg&quot;</span><span class="p">,</span> <span class="s2">&quot;right_upper_leg&quot;</span><span class="p">,</span> <span class="s2">&quot;right_lower_leg&quot;</span><span class="p">,</span>
+                               <span class="s2">&quot;left_foot&quot;</span><span class="p">,</span> <span class="s2">&quot;right_foot&quot;</span><span class="p">]:</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;rect&quot;</span><span class="p">:</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;rect&quot;</span><span class="p">],</span> <span class="n">border_radius</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ellipse&quot;</span><span class="p">:</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;rect&quot;</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;polygon&quot;</span><span class="p">:</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">polygon</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;points&quot;</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;line&quot;</span><span class="p">:</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span>
+                                   <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;points&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">part_data</span><span class="p">[</span><span class="s2">&quot;points&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                                   <span class="n">part_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+        <span class="c1"># Отрисовка блока</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">blocking</span><span class="p">:</span>
+            <span class="n">block_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_block_rect</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">block_rect</span><span class="o">.</span><span class="n">width</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">block_surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">((</span><span class="n">block_rect</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">block_rect</span><span class="o">.</span><span class="n">height</span><span class="p">),</span> <span class="n">pygame</span><span class="o">.</span><span class="n">SRCALPHA</span><span class="p">)</span>
+
+                <span class="c1"># Для ниндзя - особый эффект блока</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">body_type</span> <span class="o">==</span> <span class="n">BodyType</span><span class="o">.</span><span class="n">NINJA</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+                        <span class="n">alpha</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">-</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">20</span>
+                        <span class="n">offset</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">3</span>
+                        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">block_surface</span><span class="p">,</span> <span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;block&quot;</span><span class="p">],</span> <span class="n">alpha</span><span class="p">),</span>
+                                       <span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span>
+                                        <span class="n">block_rect</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="n">offset</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span>
+                                        <span class="n">block_rect</span><span class="o">.</span><span class="n">height</span> <span class="o">-</span> <span class="n">offset</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span>
+                                       <span class="n">border_radius</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">block_surface</span><span class="p">,</span> <span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">color_palette</span><span class="p">[</span><span class="s2">&quot;block&quot;</span><span class="p">],</span> <span class="mi">120</span><span class="p">),</span>
+                                   <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">block_rect</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">block_rect</span><span class="o">.</span><span class="n">height</span><span class="p">),</span> <span class="n">border_radius</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+                <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">block_surface</span><span class="p">,</span> <span class="n">block_rect</span><span class="p">)</span></div>
+</div>
+
+
+<div class="viewcode-block" id="Bot">
+<a class="viewcode-back" href="../modules.html#player.Bot">[документация]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Bot</span><span class="p">(</span><span class="n">Player</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Класс бота, наследуется от игрока&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Bot.__init__">
+<a class="viewcode-back" href="../modules.html#player.Bot.__init__">[документация]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">is_left</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                 <span class="n">body_type</span><span class="p">:</span> <span class="n">BodyType</span> <span class="o">=</span> <span class="n">BodyType</span><span class="o">.</span><span class="n">ATHLETIC</span><span class="p">,</span>
+                 <span class="n">color_palette</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">is_left</span><span class="p">,</span> <span class="n">body_type</span><span class="p">,</span> <span class="n">color_palette</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">decision_cooldown</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">aggression</span> <span class="o">=</span> <span class="mf">0.6</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">caution</span> <span class="o">=</span> <span class="mf">0.4</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_action</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Bot.make_decision">
+<a class="viewcode-back" href="../modules.html#player.Bot.make_decision">[документация]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">make_decision</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">player</span><span class="p">:</span> <span class="n">Player</span><span class="p">,</span> <span class="n">screen_width</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Принятие решения ботом&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">decision_cooldown</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">decision_cooldown</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">return</span>
+
+        <span class="n">distance</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Сбор информации о игроке (расстояние)</span>
+        <span class="n">player_is_left</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">player</span><span class="o">.</span><span class="n">x</span> <span class="c1"># С какой стороны игрок</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_moving</span><span class="p">()</span> <span class="c1"># Очистка предыдущих действий</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attacking</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blocking</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggression</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.7</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">attack</span><span class="p">(</span><span class="n">player</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">last_action</span> <span class="o">=</span> <span class="s2">&quot;attack&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">player_is_left</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">move_left</span><span class="p">()</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">move_right</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">last_action</span> <span class="o">=</span> <span class="s2">&quot;retreat&quot;</span>
+            <span class="k">elif</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">caution</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">block</span><span class="p">(</span><span class="n">player</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">last_action</span> <span class="o">=</span> <span class="s2">&quot;block&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">player_is_left</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">move_left</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">move_right</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">last_action</span> <span class="o">=</span> <span class="s2">&quot;advance&quot;</span>
+
+        <span class="k">elif</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="mi">250</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.4</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">player_is_left</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">move_left</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">move_right</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">last_action</span> <span class="o">=</span> <span class="s2">&quot;advance&quot;</span>
+            <span class="k">elif</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.3</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">block</span><span class="p">(</span><span class="n">player</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">last_action</span> <span class="o">=</span> <span class="s2">&quot;prepare&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">last_action</span> <span class="o">=</span> <span class="s2">&quot;wait&quot;</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.8</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">player_is_left</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">move_left</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">move_right</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">last_action</span> <span class="o">=</span> <span class="s2">&quot;advance&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">last_action</span> <span class="o">=</span> <span class="s2">&quot;wait&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">decision_cooldown</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">aggression</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggression</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">caution</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">caution</span> <span class="o">-</span> <span class="mf">0.1</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Авторские права . </p>
+  </div>
+
+  Собрано при помощи <a href="https://www.sphinx-doc.org/">Sphinx</a> с использованием
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">темы,</a>
+    предоставленной <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

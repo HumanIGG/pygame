@@ -1,0 +1,752 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ru" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API документация &mdash; документация Project name not set </title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=372fde1a"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=cd1d70c9"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" />
+    <link rel="next" title="Установка" href="installation.html" />
+    <link rel="prev" title="Документация Duelist Game" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Project name not set
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Поиск в документации" aria-label="Поиск в документации" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Меню навигации">
+              <p class="caption" role="heading"><span class="caption-text">Содержание:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API документация</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#player.Player"><code class="docutils literal notranslate"><span class="pre">Player</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#player.Player.__init__"><code class="docutils literal notranslate"><span class="pre">Player.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#player.Player.set_body_parameters"><code class="docutils literal notranslate"><span class="pre">Player.set_body_parameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#player.Player.determine_attack_hand"><code class="docutils literal notranslate"><span class="pre">Player.determine_attack_hand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#player.Player.move_left"><code class="docutils literal notranslate"><span class="pre">Player.move_left()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#player.Player.move_right"><code class="docutils literal notranslate"><span class="pre">Player.move_right()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#player.Player.stop_moving"><code class="docutils literal notranslate"><span class="pre">Player.stop_moving()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#player.Player.attack"><code class="docutils literal notranslate"><span class="pre">Player.attack()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#player.Player.block"><code class="docutils literal notranslate"><span class="pre">Player.block()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#player.Player.update_body_parts"><code class="docutils literal notranslate"><span class="pre">Player.update_body_parts()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#player.Player.update"><code class="docutils literal notranslate"><span class="pre">Player.update()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#player.Player.take_damage"><code class="docutils literal notranslate"><span class="pre">Player.take_damage()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#player.Player.get_rect"><code class="docutils literal notranslate"><span class="pre">Player.get_rect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#player.Player.get_attack_rect"><code class="docutils literal notranslate"><span class="pre">Player.get_attack_rect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#player.Player.get_block_rect"><code class="docutils literal notranslate"><span class="pre">Player.get_block_rect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#player.Player.draw"><code class="docutils literal notranslate"><span class="pre">Player.draw()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#player.Bot"><code class="docutils literal notranslate"><span class="pre">Bot</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#player.Bot.__init__"><code class="docutils literal notranslate"><span class="pre">Bot.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#player.Bot.make_decision"><code class="docutils literal notranslate"><span class="pre">Bot.make_decision()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#game_state.Game"><code class="docutils literal notranslate"><span class="pre">Game</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.__init__"><code class="docutils literal notranslate"><span class="pre">Game.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.create_background"><code class="docutils literal notranslate"><span class="pre">Game.create_background()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.load_fonts"><code class="docutils literal notranslate"><span class="pre">Game.load_fonts()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.init_screen"><code class="docutils literal notranslate"><span class="pre">Game.init_screen()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.handle_events"><code class="docutils literal notranslate"><span class="pre">Game.handle_events()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.handle_mouse_hover"><code class="docutils literal notranslate"><span class="pre">Game.handle_mouse_hover()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.handle_game_mouse_click"><code class="docutils literal notranslate"><span class="pre">Game.handle_game_mouse_click()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.handle_menu_mouse_click"><code class="docutils literal notranslate"><span class="pre">Game.handle_menu_mouse_click()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.update_menu_mouse_hover"><code class="docutils literal notranslate"><span class="pre">Game.update_menu_mouse_hover()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.handle_settings_mouse_click"><code class="docutils literal notranslate"><span class="pre">Game.handle_settings_mouse_click()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.update_settings_mouse_hover"><code class="docutils literal notranslate"><span class="pre">Game.update_settings_mouse_hover()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.handle_controls_mouse_click"><code class="docutils literal notranslate"><span class="pre">Game.handle_controls_mouse_click()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.update_controls_mouse_hover"><code class="docutils literal notranslate"><span class="pre">Game.update_controls_mouse_hover()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.handle_menu_events"><code class="docutils literal notranslate"><span class="pre">Game.handle_menu_events()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.handle_character_select_p1_events"><code class="docutils literal notranslate"><span class="pre">Game.handle_character_select_p1_events()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.handle_character_select_p1_mouse_click"><code class="docutils literal notranslate"><span class="pre">Game.handle_character_select_p1_mouse_click()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.confirm_p1_selection"><code class="docutils literal notranslate"><span class="pre">Game.confirm_p1_selection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.handle_character_select_p2_events"><code class="docutils literal notranslate"><span class="pre">Game.handle_character_select_p2_events()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.handle_character_select_p2_mouse_click"><code class="docutils literal notranslate"><span class="pre">Game.handle_character_select_p2_mouse_click()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.confirm_p2_selection"><code class="docutils literal notranslate"><span class="pre">Game.confirm_p2_selection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.handle_settings_events"><code class="docutils literal notranslate"><span class="pre">Game.handle_settings_events()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.handle_controls_events"><code class="docutils literal notranslate"><span class="pre">Game.handle_controls_events()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.handle_game_events"><code class="docutils literal notranslate"><span class="pre">Game.handle_game_events()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.return_to_menu"><code class="docutils literal notranslate"><span class="pre">Game.return_to_menu()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.handle_continuous_input"><code class="docutils literal notranslate"><span class="pre">Game.handle_continuous_input()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.start_player_vs_bot"><code class="docutils literal notranslate"><span class="pre">Game.start_player_vs_bot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.start_player_vs_player"><code class="docutils literal notranslate"><span class="pre">Game.start_player_vs_player()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.update_game"><code class="docutils literal notranslate"><span class="pre">Game.update_game()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.update_hit_effects"><code class="docutils literal notranslate"><span class="pre">Game.update_hit_effects()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.check_collisions"><code class="docutils literal notranslate"><span class="pre">Game.check_collisions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.create_hit_effect"><code class="docutils literal notranslate"><span class="pre">Game.create_hit_effect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.draw_menu"><code class="docutils literal notranslate"><span class="pre">Game.draw_menu()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.draw_character_select_p1"><code class="docutils literal notranslate"><span class="pre">Game.draw_character_select_p1()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.draw_character_select_p2"><code class="docutils literal notranslate"><span class="pre">Game.draw_character_select_p2()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.draw_character_select"><code class="docutils literal notranslate"><span class="pre">Game.draw_character_select()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.draw_controls_menu"><code class="docutils literal notranslate"><span class="pre">Game.draw_controls_menu()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.draw_settings"><code class="docutils literal notranslate"><span class="pre">Game.draw_settings()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.draw_game"><code class="docutils literal notranslate"><span class="pre">Game.draw_game()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.draw_hit_effects"><code class="docutils literal notranslate"><span class="pre">Game.draw_hit_effects()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.draw_game_info"><code class="docutils literal notranslate"><span class="pre">Game.draw_game_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.draw_winner_screen"><code class="docutils literal notranslate"><span class="pre">Game.draw_winner_screen()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.draw"><code class="docutils literal notranslate"><span class="pre">Game.draw()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#game_state.Game.run"><code class="docutils literal notranslate"><span class="pre">Game.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#enums.GameState"><code class="docutils literal notranslate"><span class="pre">GameState</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#enums.GameState.MENU"><code class="docutils literal notranslate"><span class="pre">GameState.MENU</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enums.GameState.CHARACTER_SELECT_P1"><code class="docutils literal notranslate"><span class="pre">GameState.CHARACTER_SELECT_P1</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enums.GameState.CHARACTER_SELECT_P2"><code class="docutils literal notranslate"><span class="pre">GameState.CHARACTER_SELECT_P2</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enums.GameState.PLAYER_VS_PLAYER"><code class="docutils literal notranslate"><span class="pre">GameState.PLAYER_VS_PLAYER</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enums.GameState.PLAYER_VS_BOT"><code class="docutils literal notranslate"><span class="pre">GameState.PLAYER_VS_BOT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enums.GameState.SETTINGS"><code class="docutils literal notranslate"><span class="pre">GameState.SETTINGS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enums.GameState.CONTROLS"><code class="docutils literal notranslate"><span class="pre">GameState.CONTROLS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enums.GameState.EXIT"><code class="docutils literal notranslate"><span class="pre">GameState.EXIT</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#enums.BodyType"><code class="docutils literal notranslate"><span class="pre">BodyType</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#enums.BodyType.ATHLETIC"><code class="docutils literal notranslate"><span class="pre">BodyType.ATHLETIC</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enums.BodyType.LEAN"><code class="docutils literal notranslate"><span class="pre">BodyType.LEAN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enums.BodyType.HEAVY"><code class="docutils literal notranslate"><span class="pre">BodyType.HEAVY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enums.BodyType.SUMO"><code class="docutils literal notranslate"><span class="pre">BodyType.SUMO</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enums.BodyType.NINJA"><code class="docutils literal notranslate"><span class="pre">BodyType.NINJA</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enums.BodyType.ROBOTIC"><code class="docutils literal notranslate"><span class="pre">BodyType.ROBOTIC</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#colors.ColorPalette"><code class="docutils literal notranslate"><span class="pre">ColorPalette</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#colors.ColorPalette.PALETTES"><code class="docutils literal notranslate"><span class="pre">ColorPalette.PALETTES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#colors.ColorPalette.get_palette"><code class="docutils literal notranslate"><span class="pre">ColorPalette.get_palette()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#colors.ColorPalette.get_palette_names"><code class="docutils literal notranslate"><span class="pre">ColorPalette.get_palette_names()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#colors.ColorPalette.get_display_names"><code class="docutils literal notranslate"><span class="pre">ColorPalette.get_display_names()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#settings.Settings"><code class="docutils literal notranslate"><span class="pre">Settings</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#settings.Settings.__init__"><code class="docutils literal notranslate"><span class="pre">Settings.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#settings.Settings.set_resolution"><code class="docutils literal notranslate"><span class="pre">Settings.set_resolution()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#settings.Settings.set_fullscreen"><code class="docutils literal notranslate"><span class="pre">Settings.set_fullscreen()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#settings.Settings.set_borderless"><code class="docutils literal notranslate"><span class="pre">Settings.set_borderless()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#settings.Settings.get_current_resolution_str"><code class="docutils literal notranslate"><span class="pre">Settings.get_current_resolution_str()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Установка</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Использование</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Меню навигации для мобильных устройств" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Project name not set</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Навигация по страницам">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">API документация</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/modules.rst.txt" rel="nofollow"> Просмотреть исходный код страницы</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-player">
+<span id="api"></span><h1>API документация<a class="headerlink" href="#module-player" title="Ссылка на этот заголовок"></a></h1>
+<p>Классы Player и Bot</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="player.Player">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">player.</span></span><span class="sig-name descname"><span class="pre">Player</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_left</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#enums.BodyType" title="enums.BodyType"><span class="pre">BodyType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">BodyType.ATHLETIC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_palette</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/player.html#Player"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#player.Player" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Класс игрока с персонажами и анимированными руками</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="player.Player.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_left</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#enums.BodyType" title="enums.BodyType"><span class="pre">BodyType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">BodyType.ATHLETIC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_palette</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/player.html#Player.__init__"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#player.Player.__init__" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="player.Player.set_body_parameters">
+<span class="sig-name descname"><span class="pre">set_body_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/player.html#Player.set_body_parameters"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#player.Player.set_body_parameters" title="Ссылка на это определение"></a></dt>
+<dd><p>Установка параметров тела в зависимости от типа</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="player.Player.determine_attack_hand">
+<span class="sig-name descname"><span class="pre">determine_attack_hand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opponent_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/player.html#Player.determine_attack_hand"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#player.Player.determine_attack_hand" title="Ссылка на это определение"></a></dt>
+<dd><p>Определяет какой рукой бить в зависимости от позиции противника</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="player.Player.move_left">
+<span class="sig-name descname"><span class="pre">move_left</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/player.html#Player.move_left"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#player.Player.move_left" title="Ссылка на это определение"></a></dt>
+<dd><p>Движение влево</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="player.Player.move_right">
+<span class="sig-name descname"><span class="pre">move_right</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/player.html#Player.move_right"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#player.Player.move_right" title="Ссылка на это определение"></a></dt>
+<dd><p>Движение вправо</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="player.Player.stop_moving">
+<span class="sig-name descname"><span class="pre">stop_moving</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/player.html#Player.stop_moving"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#player.Player.stop_moving" title="Ссылка на это определение"></a></dt>
+<dd><p>Остановка движения</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="player.Player.attack">
+<span class="sig-name descname"><span class="pre">attack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opponent_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/player.html#Player.attack"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#player.Player.attack" title="Ссылка на это определение"></a></dt>
+<dd><p>Начало атаки с автоматическим выбором руки</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="player.Player.block">
+<span class="sig-name descname"><span class="pre">block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opponent_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/player.html#Player.block"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#player.Player.block" title="Ссылка на это определение"></a></dt>
+<dd><p>Установка блока с автоматическим выбором стороны</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="player.Player.update_body_parts">
+<span class="sig-name descname"><span class="pre">update_body_parts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/player.html#Player.update_body_parts"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#player.Player.update_body_parts" title="Ссылка на это определение"></a></dt>
+<dd><p>Обновление позиций всех частей тела с анимацией рук</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="player.Player.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ground_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">screen_width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opponent_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/player.html#Player.update"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#player.Player.update" title="Ссылка на это определение"></a></dt>
+<dd><p>Обновление состояния игрока</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="player.Player.take_damage">
+<span class="sig-name descname"><span class="pre">take_damage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">damage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/player.html#Player.take_damage"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#player.Player.take_damage" title="Ссылка на это определение"></a></dt>
+<dd><p>Получение урона</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="player.Player.get_rect">
+<span class="sig-name descname"><span class="pre">get_rect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Rect</span></span></span><a class="reference internal" href="_modules/player.html#Player.get_rect"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#player.Player.get_rect" title="Ссылка на это определение"></a></dt>
+<dd><p>Получение прямоугольника для коллизий</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="player.Player.get_attack_rect">
+<span class="sig-name descname"><span class="pre">get_attack_rect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Rect</span></span></span><a class="reference internal" href="_modules/player.html#Player.get_attack_rect"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#player.Player.get_attack_rect" title="Ссылка на это определение"></a></dt>
+<dd><p>Получение прямоугольника для атаки</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="player.Player.get_block_rect">
+<span class="sig-name descname"><span class="pre">get_block_rect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Rect</span></span></span><a class="reference internal" href="_modules/player.html#Player.get_block_rect"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#player.Player.get_block_rect" title="Ссылка на это определение"></a></dt>
+<dd><p>Получение прямоугольника для блока</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="player.Player.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">screen</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Surface</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/player.html#Player.draw"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#player.Player.draw" title="Ссылка на это определение"></a></dt>
+<dd><p>Отрисовка персонажа с анимированными руками</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="player.Bot">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">player.</span></span><span class="sig-name descname"><span class="pre">Bot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_left</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#enums.BodyType" title="enums.BodyType"><span class="pre">BodyType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">BodyType.ATHLETIC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_palette</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/player.html#Bot"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#player.Bot" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <a class="reference internal" href="#player.Player" title="player.Player"><code class="xref py py-class docutils literal notranslate"><span class="pre">Player</span></code></a></p>
+<p>Класс бота, наследуется от игрока</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="player.Bot.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_left</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#enums.BodyType" title="enums.BodyType"><span class="pre">BodyType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">BodyType.ATHLETIC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_palette</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/player.html#Bot.__init__"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#player.Bot.__init__" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="player.Bot.make_decision">
+<span class="sig-name descname"><span class="pre">make_decision</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#player.Player" title="player.Player"><span class="pre">Player</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">screen_width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/player.html#Bot.make_decision"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#player.Bot.make_decision" title="Ссылка на это определение"></a></dt>
+<dd><p>Принятие решения ботом</p>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-game_state">Класс Game и управление состояниями</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="game_state.Game">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">game_state.</span></span><span class="sig-name descname"><span class="pre">Game</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#settings.Settings" title="settings.Settings"><span class="pre">Settings</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Основной класс игры</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#settings.Settings" title="settings.Settings"><span class="pre">Settings</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.__init__"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.__init__" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.create_background">
+<span class="sig-name descname"><span class="pre">create_background</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.create_background"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.create_background" title="Ссылка на это определение"></a></dt>
+<dd><p>Создание тематического фона для игры</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.load_fonts">
+<span class="sig-name descname"><span class="pre">load_fonts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.load_fonts"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.load_fonts" title="Ссылка на это определение"></a></dt>
+<dd><p>Загрузка шрифтов</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.init_screen">
+<span class="sig-name descname"><span class="pre">init_screen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.init_screen"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.init_screen" title="Ссылка на это определение"></a></dt>
+<dd><p>Инициализация экрана с текущими настройками</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.handle_events">
+<span class="sig-name descname"><span class="pre">handle_events</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.handle_events"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.handle_events" title="Ссылка на это определение"></a></dt>
+<dd><p>Обработка событий</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.handle_mouse_hover">
+<span class="sig-name descname"><span class="pre">handle_mouse_hover</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mouse_pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.handle_mouse_hover"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.handle_mouse_hover" title="Ссылка на это определение"></a></dt>
+<dd><p>Обработка наведения мыши для подсветки элементов</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.handle_game_mouse_click">
+<span class="sig-name descname"><span class="pre">handle_game_mouse_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mouse_pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.handle_game_mouse_click"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.handle_game_mouse_click" title="Ссылка на это определение"></a></dt>
+<dd><p>Обработка кликов мыши в игровом режиме</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.handle_menu_mouse_click">
+<span class="sig-name descname"><span class="pre">handle_menu_mouse_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mouse_pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.handle_menu_mouse_click"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.handle_menu_mouse_click" title="Ссылка на это определение"></a></dt>
+<dd><p>Обработка кликов мыши в главном меню</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.update_menu_mouse_hover">
+<span class="sig-name descname"><span class="pre">update_menu_mouse_hover</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mouse_pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.update_menu_mouse_hover"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.update_menu_mouse_hover" title="Ссылка на это определение"></a></dt>
+<dd><p>Обновление подсветки в главном меню</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.handle_settings_mouse_click">
+<span class="sig-name descname"><span class="pre">handle_settings_mouse_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mouse_pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.handle_settings_mouse_click"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.handle_settings_mouse_click" title="Ссылка на это определение"></a></dt>
+<dd><p>Обработка кликов мыши в настройках</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.update_settings_mouse_hover">
+<span class="sig-name descname"><span class="pre">update_settings_mouse_hover</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mouse_pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.update_settings_mouse_hover"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.update_settings_mouse_hover" title="Ссылка на это определение"></a></dt>
+<dd><p>Обновление подсветки в настройках</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.handle_controls_mouse_click">
+<span class="sig-name descname"><span class="pre">handle_controls_mouse_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mouse_pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.handle_controls_mouse_click"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.handle_controls_mouse_click" title="Ссылка на это определение"></a></dt>
+<dd><p>Обработка кликов мыши в меню управления</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.update_controls_mouse_hover">
+<span class="sig-name descname"><span class="pre">update_controls_mouse_hover</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mouse_pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.update_controls_mouse_hover"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.update_controls_mouse_hover" title="Ссылка на это определение"></a></dt>
+<dd><p>Обновление подсветки в меню управления</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.handle_menu_events">
+<span class="sig-name descname"><span class="pre">handle_menu_events</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.handle_menu_events"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.handle_menu_events" title="Ссылка на это определение"></a></dt>
+<dd><p>Обработка событий меню</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.handle_character_select_p1_events">
+<span class="sig-name descname"><span class="pre">handle_character_select_p1_events</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.handle_character_select_p1_events"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.handle_character_select_p1_events" title="Ссылка на это определение"></a></dt>
+<dd><p>Обработка событий выбора персонажа для игрока 1</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.handle_character_select_p1_mouse_click">
+<span class="sig-name descname"><span class="pre">handle_character_select_p1_mouse_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mouse_pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.handle_character_select_p1_mouse_click"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.handle_character_select_p1_mouse_click" title="Ссылка на это определение"></a></dt>
+<dd><p>Обработка кликов мыши в выборе персонажа для игрока 1</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.confirm_p1_selection">
+<span class="sig-name descname"><span class="pre">confirm_p1_selection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.confirm_p1_selection"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.confirm_p1_selection" title="Ссылка на это определение"></a></dt>
+<dd><p>Подтверждение выбора для игрока 1</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.handle_character_select_p2_events">
+<span class="sig-name descname"><span class="pre">handle_character_select_p2_events</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.handle_character_select_p2_events"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.handle_character_select_p2_events" title="Ссылка на это определение"></a></dt>
+<dd><p>Обработка событий выбора персонажа для игрока 2</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.handle_character_select_p2_mouse_click">
+<span class="sig-name descname"><span class="pre">handle_character_select_p2_mouse_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mouse_pos</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.handle_character_select_p2_mouse_click"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.handle_character_select_p2_mouse_click" title="Ссылка на это определение"></a></dt>
+<dd><p>Обработка кликов мыши в выборе персонажа для игрока 2</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.confirm_p2_selection">
+<span class="sig-name descname"><span class="pre">confirm_p2_selection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.confirm_p2_selection"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.confirm_p2_selection" title="Ссылка на это определение"></a></dt>
+<dd><p>Подтверждение выбора для игрока 2</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.handle_settings_events">
+<span class="sig-name descname"><span class="pre">handle_settings_events</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.handle_settings_events"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.handle_settings_events" title="Ссылка на это определение"></a></dt>
+<dd><p>Обработка событий настроек</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.handle_controls_events">
+<span class="sig-name descname"><span class="pre">handle_controls_events</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.handle_controls_events"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.handle_controls_events" title="Ссылка на это определение"></a></dt>
+<dd><p>Обработка событий в меню управления</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.handle_game_events">
+<span class="sig-name descname"><span class="pre">handle_game_events</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.handle_game_events"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.handle_game_events" title="Ссылка на это определение"></a></dt>
+<dd><p>Обработка событий игры</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.return_to_menu">
+<span class="sig-name descname"><span class="pre">return_to_menu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.return_to_menu"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.return_to_menu" title="Ссылка на это определение"></a></dt>
+<dd><p>Возврат в главное меню</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.handle_continuous_input">
+<span class="sig-name descname"><span class="pre">handle_continuous_input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.handle_continuous_input"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.handle_continuous_input" title="Ссылка на это определение"></a></dt>
+<dd><p>Обработка непрерывного ввода</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.start_player_vs_bot">
+<span class="sig-name descname"><span class="pre">start_player_vs_bot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.start_player_vs_bot"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.start_player_vs_bot" title="Ссылка на это определение"></a></dt>
+<dd><p>Начало игры против бота</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.start_player_vs_player">
+<span class="sig-name descname"><span class="pre">start_player_vs_player</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.start_player_vs_player"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.start_player_vs_player" title="Ссылка на это определение"></a></dt>
+<dd><p>Начало игры игрок против игрока</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.update_game">
+<span class="sig-name descname"><span class="pre">update_game</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.update_game"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.update_game" title="Ссылка на это определение"></a></dt>
+<dd><p>Обновление игрового состояния</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.update_hit_effects">
+<span class="sig-name descname"><span class="pre">update_hit_effects</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.update_hit_effects"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.update_hit_effects" title="Ссылка на это определение"></a></dt>
+<dd><p>Обновление эффектов попаданий</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.check_collisions">
+<span class="sig-name descname"><span class="pre">check_collisions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#player.Player" title="player.Player"><span class="pre">Player</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">player2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#player.Player" title="player.Player"><span class="pre">Player</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.check_collisions"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.check_collisions" title="Ссылка на это определение"></a></dt>
+<dd><p>Проверка коллизий между двумя игроками</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.create_hit_effect">
+<span class="sig-name descname"><span class="pre">create_hit_effect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.create_hit_effect"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.create_hit_effect" title="Ссылка на это определение"></a></dt>
+<dd><p>Создание визуального эффекта попадания</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.draw_menu">
+<span class="sig-name descname"><span class="pre">draw_menu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.draw_menu"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.draw_menu" title="Ссылка на это определение"></a></dt>
+<dd><p>Отрисовка главного меню</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.draw_character_select_p1">
+<span class="sig-name descname"><span class="pre">draw_character_select_p1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.draw_character_select_p1"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.draw_character_select_p1" title="Ссылка на это определение"></a></dt>
+<dd><p>Отрисовка экрана выбора персонажа для игрока 1</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.draw_character_select_p2">
+<span class="sig-name descname"><span class="pre">draw_character_select_p2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.draw_character_select_p2"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.draw_character_select_p2" title="Ссылка на это определение"></a></dt>
+<dd><p>Отрисовка экрана выбора персонажа для игрока 2</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.draw_character_select">
+<span class="sig-name descname"><span class="pre">draw_character_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_selection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_p1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.draw_character_select"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.draw_character_select" title="Ссылка на это определение"></a></dt>
+<dd><p>Общий метод отрисовки выбора персонажа</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.draw_controls_menu">
+<span class="sig-name descname"><span class="pre">draw_controls_menu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.draw_controls_menu"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.draw_controls_menu" title="Ссылка на это определение"></a></dt>
+<dd><p>Отрисовка меню правил и управления</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.draw_settings">
+<span class="sig-name descname"><span class="pre">draw_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.draw_settings"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.draw_settings" title="Ссылка на это определение"></a></dt>
+<dd><p>Отрисовка экрана настроек</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.draw_game">
+<span class="sig-name descname"><span class="pre">draw_game</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.draw_game"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.draw_game" title="Ссылка на это определение"></a></dt>
+<dd><p>Отрисовка игрового экрана</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.draw_hit_effects">
+<span class="sig-name descname"><span class="pre">draw_hit_effects</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.draw_hit_effects"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.draw_hit_effects" title="Ссылка на это определение"></a></dt>
+<dd><p>Отрисовка эффектов попаданий</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.draw_game_info">
+<span class="sig-name descname"><span class="pre">draw_game_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p1_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p1_health</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p2_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p2_health</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.draw_game_info"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.draw_game_info" title="Ссылка на это определение"></a></dt>
+<dd><p>Отрисовка игровой информации вверху экрана</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.draw_winner_screen">
+<span class="sig-name descname"><span class="pre">draw_winner_screen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.draw_winner_screen"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.draw_winner_screen" title="Ссылка на это определение"></a></dt>
+<dd><p>Отрисовка экрана победителя</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.draw"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.draw" title="Ссылка на это определение"></a></dt>
+<dd><p>Основной метод отрисовки</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="game_state.Game.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/game_state.html#Game.run"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#game_state.Game.run" title="Ссылка на это определение"></a></dt>
+<dd><p>Основной игровой цикл</p>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-enums">Перечисления (Enum-классы)</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="enums.GameState">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">enums.</span></span><span class="sig-name descname"><span class="pre">GameState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/enums.html#GameState"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#enums.GameState" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Состояния игры</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="enums.GameState.MENU">
+<span class="sig-name descname"><span class="pre">MENU</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'menu'</span></em><a class="headerlink" href="#enums.GameState.MENU" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="enums.GameState.CHARACTER_SELECT_P1">
+<span class="sig-name descname"><span class="pre">CHARACTER_SELECT_P1</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'character_select_p1'</span></em><a class="headerlink" href="#enums.GameState.CHARACTER_SELECT_P1" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="enums.GameState.CHARACTER_SELECT_P2">
+<span class="sig-name descname"><span class="pre">CHARACTER_SELECT_P2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'character_select_p2'</span></em><a class="headerlink" href="#enums.GameState.CHARACTER_SELECT_P2" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="enums.GameState.PLAYER_VS_PLAYER">
+<span class="sig-name descname"><span class="pre">PLAYER_VS_PLAYER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'player_vs_player'</span></em><a class="headerlink" href="#enums.GameState.PLAYER_VS_PLAYER" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="enums.GameState.PLAYER_VS_BOT">
+<span class="sig-name descname"><span class="pre">PLAYER_VS_BOT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'player_vs_bot'</span></em><a class="headerlink" href="#enums.GameState.PLAYER_VS_BOT" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="enums.GameState.SETTINGS">
+<span class="sig-name descname"><span class="pre">SETTINGS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'settings'</span></em><a class="headerlink" href="#enums.GameState.SETTINGS" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="enums.GameState.CONTROLS">
+<span class="sig-name descname"><span class="pre">CONTROLS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'controls'</span></em><a class="headerlink" href="#enums.GameState.CONTROLS" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="enums.GameState.EXIT">
+<span class="sig-name descname"><span class="pre">EXIT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'exit'</span></em><a class="headerlink" href="#enums.GameState.EXIT" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="enums.BodyType">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">enums.</span></span><span class="sig-name descname"><span class="pre">BodyType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/enums.html#BodyType"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#enums.BodyType" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Типы телосложения персонажей</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="enums.BodyType.ATHLETIC">
+<span class="sig-name descname"><span class="pre">ATHLETIC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'athletic'</span></em><a class="headerlink" href="#enums.BodyType.ATHLETIC" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="enums.BodyType.LEAN">
+<span class="sig-name descname"><span class="pre">LEAN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'lean'</span></em><a class="headerlink" href="#enums.BodyType.LEAN" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="enums.BodyType.HEAVY">
+<span class="sig-name descname"><span class="pre">HEAVY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'heavy'</span></em><a class="headerlink" href="#enums.BodyType.HEAVY" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="enums.BodyType.SUMO">
+<span class="sig-name descname"><span class="pre">SUMO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'sumo'</span></em><a class="headerlink" href="#enums.BodyType.SUMO" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="enums.BodyType.NINJA">
+<span class="sig-name descname"><span class="pre">NINJA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ninja'</span></em><a class="headerlink" href="#enums.BodyType.NINJA" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="enums.BodyType.ROBOTIC">
+<span class="sig-name descname"><span class="pre">ROBOTIC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'robotic'</span></em><a class="headerlink" href="#enums.BodyType.ROBOTIC" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p id="module-colors">Цветовые палитры</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="colors.ColorPalette">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">colors.</span></span><span class="sig-name descname"><span class="pre">ColorPalette</span></span><a class="reference internal" href="_modules/colors.html#ColorPalette"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#colors.ColorPalette" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Цветовые палитры для персонажей</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="colors.ColorPalette.PALETTES">
+<span class="sig-name descname"><span class="pre">PALETTES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'blue':</span> <span class="pre">{'attack':</span> <span class="pre">(240,</span> <span class="pre">100,</span> <span class="pre">60),</span> <span class="pre">'block':</span> <span class="pre">(100,</span> <span class="pre">180,</span> <span class="pre">250),</span> <span class="pre">'body':</span> <span class="pre">(20,</span> <span class="pre">30,</span> <span class="pre">50),</span> <span class="pre">'highlight':</span> <span class="pre">(40,</span> <span class="pre">60,</span> <span class="pre">90)},</span> <span class="pre">'default':</span> <span class="pre">{'attack':</span> <span class="pre">(220,</span> <span class="pre">60,</span> <span class="pre">60),</span> <span class="pre">'block':</span> <span class="pre">(60,</span> <span class="pre">120,</span> <span class="pre">220),</span> <span class="pre">'body':</span> <span class="pre">(30,</span> <span class="pre">30,</span> <span class="pre">40),</span> <span class="pre">'highlight':</span> <span class="pre">(60,</span> <span class="pre">60,</span> <span class="pre">80)},</span> <span class="pre">'gold':</span> <span class="pre">{'attack':</span> <span class="pre">(240,</span> <span class="pre">140,</span> <span class="pre">60),</span> <span class="pre">'block':</span> <span class="pre">(140,</span> <span class="pre">200,</span> <span class="pre">240),</span> <span class="pre">'body':</span> <span class="pre">(60,</span> <span class="pre">50,</span> <span class="pre">30),</span> <span class="pre">'highlight':</span> <span class="pre">(90,</span> <span class="pre">80,</span> <span class="pre">50)},</span> <span class="pre">'green':</span> <span class="pre">{'attack':</span> <span class="pre">(230,</span> <span class="pre">80,</span> <span class="pre">80),</span> <span class="pre">'block':</span> <span class="pre">(80,</span> <span class="pre">180,</span> <span class="pre">230),</span> <span class="pre">'body':</span> <span class="pre">(25,</span> <span class="pre">40,</span> <span class="pre">25),</span> <span class="pre">'highlight':</span> <span class="pre">(45,</span> <span class="pre">70,</span> <span class="pre">45)},</span> <span class="pre">'purple':</span> <span class="pre">{'attack':</span> <span class="pre">(240,</span> <span class="pre">120,</span> <span class="pre">60),</span> <span class="pre">'block':</span> <span class="pre">(120,</span> <span class="pre">80,</span> <span class="pre">240),</span> <span class="pre">'body':</span> <span class="pre">(40,</span> <span class="pre">20,</span> <span class="pre">50),</span> <span class="pre">'highlight':</span> <span class="pre">(70,</span> <span class="pre">40,</span> <span class="pre">80)},</span> <span class="pre">'red':</span> <span class="pre">{'attack':</span> <span class="pre">(240,</span> <span class="pre">80,</span> <span class="pre">80),</span> <span class="pre">'block':</span> <span class="pre">(80,</span> <span class="pre">160,</span> <span class="pre">240),</span> <span class="pre">'body':</span> <span class="pre">(50,</span> <span class="pre">20,</span> <span class="pre">25),</span> <span class="pre">'highlight':</span> <span class="pre">(80,</span> <span class="pre">40,</span> <span class="pre">45)}}</span></em><a class="headerlink" href="#colors.ColorPalette.PALETTES" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="colors.ColorPalette.get_palette">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_palette</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/colors.html#ColorPalette.get_palette"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#colors.ColorPalette.get_palette" title="Ссылка на это определение"></a></dt>
+<dd><p>Возвращает цветовую палитру по имени</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="colors.ColorPalette.get_palette_names">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_palette_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/colors.html#ColorPalette.get_palette_names"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#colors.ColorPalette.get_palette_names" title="Ссылка на это определение"></a></dt>
+<dd><p>Возвращает список имен всех палитр</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="colors.ColorPalette.get_display_names">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_display_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/colors.html#ColorPalette.get_display_names"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#colors.ColorPalette.get_display_names" title="Ссылка на это определение"></a></dt>
+<dd><p>Возвращает отображаемые имена палитр</p>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-settings">Класс Settings и настройки</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="settings.Settings">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">settings.</span></span><span class="sig-name descname"><span class="pre">Settings</span></span><a class="reference internal" href="_modules/settings.html#Settings"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#settings.Settings" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Класс для хранения настроек игры</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="settings.Settings.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/settings.html#Settings.__init__"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#settings.Settings.__init__" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings.Settings.set_resolution">
+<span class="sig-name descname"><span class="pre">set_resolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/settings.html#Settings.set_resolution"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#settings.Settings.set_resolution" title="Ссылка на это определение"></a></dt>
+<dd><p>Установка разрешения экрана</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings.Settings.set_fullscreen">
+<span class="sig-name descname"><span class="pre">set_fullscreen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fullscreen</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/settings.html#Settings.set_fullscreen"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#settings.Settings.set_fullscreen" title="Ссылка на это определение"></a></dt>
+<dd><p>Установка полноэкранного режима</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings.Settings.set_borderless">
+<span class="sig-name descname"><span class="pre">set_borderless</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">borderless</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/settings.html#Settings.set_borderless"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#settings.Settings.set_borderless" title="Ссылка на это определение"></a></dt>
+<dd><p>Установка режима без рамок</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="settings.Settings.get_current_resolution_str">
+<span class="sig-name descname"><span class="pre">get_current_resolution_str</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/settings.html#Settings.get_current_resolution_str"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#settings.Settings.get_current_resolution_str" title="Ссылка на это определение"></a></dt>
+<dd><p>Получение строки текущего разрешения</p>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-constants">Константы и настройки игры</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Нижняя область">
+        <a href="index.html" class="btn btn-neutral float-left" title="Документация Duelist Game" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Предыдущая</a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="Установка" accesskey="n" rel="next">Следующая <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Авторские права . </p>
+  </div>
+
+  Собрано при помощи <a href="https://www.sphinx-doc.org/">Sphinx</a> с использованием
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">темы,</a>
+    предоставленной <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
